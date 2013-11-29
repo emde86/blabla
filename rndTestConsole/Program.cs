@@ -39,6 +39,8 @@ namespace rndTestConsole
                 int? p2 = 2;
                 int? p3 = null;
 
+                p1 = 123;
+
                 Console.WriteLine(CorrectDefaultValue(p1, 0));
                 Console.WriteLine(CorrectDefaultValue(p2, 2));
                 Console.WriteLine(CorrectDefaultValue(p3));
