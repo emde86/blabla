@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Maps"
+        xmlns="http://ibatis.apache.org/mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="CrewMember" type="rndTestConsole.CrewMember"/>
+  </alias>
+
+  <resultMaps>
+    <resultMap id="CrewMemberResultMap" class="CrewMember">
+      <result property="Initials" column="Initials"/>
+      <result property="EmployeeNumber" column="EmployeeNumber"/>
+      <result property="LicenseNumber" column="LicenseNumber"/>
+      <result property="Birthday" column="Birthday"/>
+      <result property="EnlistmentDate" column="EnlistmentDate"/>
+      <result property="TerminationDate" column="TerminationDate" />
+      <result property="HasApplicationAccess" column="HasApplicationAccess"/>
+      <result property="LoginName" column="LoginName"/>
+    </resultMap>
+  </resultMaps>
+
+  <cacheModels>
+    <cacheModel id="CrewMemberCacheModel" readOnly="true" implementation="LRU">
+      <flushInterval hours="24"/>
+      <flushOnExecute statement="InsertCrewMember"/>
+      <flushOnExecute statement="UpdateCrewMember"/>
+      <flushOnExecute statement="DeleteCrewMember"/>
+      <property name="CacheSize" value="200"/>
+    </cacheModel>
+  </cacheModels>
+
+  <statements>
+    <select id="GetAllCrewMembers" resultMap="CrewMemberResultMap">
+      <!--cacheModel="CrewMemberCacheModel">-->
+      select Initials, EmployeeNumber, LicenseNumber, Birthday, EnlistmentDate, TerminationDate, HasApplicationAccess, LoginName
+      from Resources.CrewMembers p
+      inner join [System].ItemsQuery i on i.Id=p.Id
+      left join Contacts.Addresses a on a.Id=p.AddressId
+      left join [System].Items i2 on i2.Id=p.DepartmentId
+      left join [System].Items i3 on i3.Id=p.MemberFunctionId
+      left join Resources.MemberFunctions mf on mf.Id=p.MemberFunctionId
+      order by p.Initials
+    </select>
+    <select id="GetAllCrewMembersHash" resultClass="System.Collections.Hashtable">
+      <!--cacheModel="CrewMemberCacheModel">-->
+      select Initials, EmployeeNumber, LicenseNumber, Birthday, EnlistmentDate, TerminationDate, HasApplicationAccess, LoginName
+      from Resources.CrewMembers p
+      inner join [System].ItemsQuery i on i.Id=p.Id
+      left join Contacts.Addresses a on a.Id=p.AddressId
+      left join [System].Items i2 on i2.Id=p.DepartmentId
+      left join [System].Items i3 on i3.Id=p.MemberFunctionId
+      left join Resources.MemberFunctions mf on mf.Id=p.MemberFunctionId
+      order by p.Initials
+    </select>
+  </statements>
+</sqlMap>

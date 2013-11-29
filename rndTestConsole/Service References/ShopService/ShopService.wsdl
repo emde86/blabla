@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.arqsoft.net/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.arqsoft.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.arqsoft.net/">
+      <s:element name="CreateVoucherTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="voucher" type="tns:Voucher" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientAddress" type="tns:AddressInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientAddress" type="tns:AddressInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Voucher">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VoucherId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sat" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VoucherNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoucherCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CityCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DaytimePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateVoucherTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateVoucherTransactionResult" type="tns:Transaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Transaction">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVoucher">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="transactionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVoucherResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVoucherResult" type="tns:VoucherInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VoucherInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VoucherId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="VoucherNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoucherCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sat" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ProcessPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="transactionId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="payment" type="tns:PaymentInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PayId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ProcessPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessPaymentResult" type="tns:Transaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateBooking">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="flightId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientAddress" type="tns:AddressInfo" />
+            <s:element minOccurs="1" maxOccurs="1" name="paxCount" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateBookingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateBookingResult" type="tns:Booking" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Booking">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BookingId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SegmentId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaxCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Flight" type="tns:FlightInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FlightInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FlightId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Date" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FlightNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepartureStation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepartureStationName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArrivalStation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArrivalStationName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BlockOn" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BlockOff" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AirTime" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pax" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Act" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookingOffice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookingOfficeTelephone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HashCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SavePax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="bookingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="segmentId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pax" type="tns:PaxInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaxInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PaxId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaxType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Discount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="DiscountInfo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SavePaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SavePaxResult" type="tns:PaxInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SellTix">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="bookingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="addressId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SellTixResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SellTixResult" type="tns:Transaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitVoucher">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="transactionId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="voucher" type="tns:VoucherInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitVoucherResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubmitVoucherResult" type="tns:VoucherInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitVoucher2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="transactionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="voucherNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="voucherCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitVoucher2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubmitVoucher2Result" type="tns:VoucherInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTickets">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="transactionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTicketsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTicketsResult" type="tns:ArrayOfTicketInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTicketInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TicketInfo" nillable="true" type="tns:TicketInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TicketInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TicketId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BundleId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BookingId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SegmentId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaxId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TicketNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaxName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fare" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VAT" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalFare" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Payment" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IssueDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FlightNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FlightDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TakeOff" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CheckInLimit" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AirTime" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepartureStation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArrivalStation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckInInfo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FlightType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BoardingId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepartureCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArrivalCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendTicketEMail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdfFile" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTicketEMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendTicketEMailResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateVoucherTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateVoucherTransaction" />
+  </wsdl:message>
+  <wsdl:message name="CreateVoucherTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateVoucherTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVoucherSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVoucher" />
+  </wsdl:message>
+  <wsdl:message name="GetVoucherSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVoucherResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessPayment" />
+  </wsdl:message>
+  <wsdl:message name="ProcessPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateBookingSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateBooking" />
+  </wsdl:message>
+  <wsdl:message name="CreateBookingSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateBookingResponse" />
+  </wsdl:message>
+  <wsdl:message name="SavePaxSoapIn">
+    <wsdl:part name="parameters" element="tns:SavePax" />
+  </wsdl:message>
+  <wsdl:message name="SavePaxSoapOut">
+    <wsdl:part name="parameters" element="tns:SavePaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="SellTixSoapIn">
+    <wsdl:part name="parameters" element="tns:SellTix" />
+  </wsdl:message>
+  <wsdl:message name="SellTixSoapOut">
+    <wsdl:part name="parameters" element="tns:SellTixResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubmitVoucherSoapIn">
+    <wsdl:part name="parameters" element="tns:SubmitVoucher" />
+  </wsdl:message>
+  <wsdl:message name="SubmitVoucherSoapOut">
+    <wsdl:part name="parameters" element="tns:SubmitVoucherResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubmitVoucher2SoapIn">
+    <wsdl:part name="parameters" element="tns:SubmitVoucher2" />
+  </wsdl:message>
+  <wsdl:message name="SubmitVoucher2SoapOut">
+    <wsdl:part name="parameters" element="tns:SubmitVoucher2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTickets" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTicketsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendTicketEMailSoapIn">
+    <wsdl:part name="parameters" element="tns:SendTicketEMail" />
+  </wsdl:message>
+  <wsdl:message name="SendTicketEMailSoapOut">
+    <wsdl:part name="parameters" element="tns:SendTicketEMailResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ShopServiceSoap">
+    <wsdl:operation name="CreateVoucherTransaction">
+      <wsdl:input message="tns:CreateVoucherTransactionSoapIn" />
+      <wsdl:output message="tns:CreateVoucherTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVoucher">
+      <wsdl:input message="tns:GetVoucherSoapIn" />
+      <wsdl:output message="tns:GetVoucherSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPayment">
+      <wsdl:input message="tns:ProcessPaymentSoapIn" />
+      <wsdl:output message="tns:ProcessPaymentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBooking">
+      <wsdl:input message="tns:CreateBookingSoapIn" />
+      <wsdl:output message="tns:CreateBookingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePax">
+      <wsdl:input message="tns:SavePaxSoapIn" />
+      <wsdl:output message="tns:SavePaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SellTix">
+      <wsdl:input message="tns:SellTixSoapIn" />
+      <wsdl:output message="tns:SellTixSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitVoucher">
+      <wsdl:input message="tns:SubmitVoucherSoapIn" />
+      <wsdl:output message="tns:SubmitVoucherSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitVoucher2">
+      <wsdl:input message="tns:SubmitVoucher2SoapIn" />
+      <wsdl:output message="tns:SubmitVoucher2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTickets">
+      <wsdl:input message="tns:GetTicketsSoapIn" />
+      <wsdl:output message="tns:GetTicketsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTicketEMail">
+      <wsdl:input message="tns:SendTicketEMailSoapIn" />
+      <wsdl:output message="tns:SendTicketEMailSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ShopServiceSoap" type="tns:ShopServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateVoucherTransaction">
+      <soap:operation soapAction="http://www.arqsoft.net/CreateVoucherTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVoucher">
+      <soap:operation soapAction="http://www.arqsoft.net/GetVoucher" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPayment">
+      <soap:operation soapAction="http://www.arqsoft.net/ProcessPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBooking">
+      <soap:operation soapAction="http://www.arqsoft.net/CreateBooking" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePax">
+      <soap:operation soapAction="http://www.arqsoft.net/SavePax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SellTix">
+      <soap:operation soapAction="http://www.arqsoft.net/SellTix" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitVoucher">
+      <soap:operation soapAction="http://www.arqsoft.net/SubmitVoucher" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitVoucher2">
+      <soap:operation soapAction="http://www.arqsoft.net/SubmitVoucher2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTickets">
+      <soap:operation soapAction="http://www.arqsoft.net/GetTickets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTicketEMail">
+      <soap:operation soapAction="http://www.arqsoft.net/SendTicketEMail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ShopServiceSoap12" type="tns:ShopServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateVoucherTransaction">
+      <soap12:operation soapAction="http://www.arqsoft.net/CreateVoucherTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVoucher">
+      <soap12:operation soapAction="http://www.arqsoft.net/GetVoucher" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPayment">
+      <soap12:operation soapAction="http://www.arqsoft.net/ProcessPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBooking">
+      <soap12:operation soapAction="http://www.arqsoft.net/CreateBooking" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePax">
+      <soap12:operation soapAction="http://www.arqsoft.net/SavePax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SellTix">
+      <soap12:operation soapAction="http://www.arqsoft.net/SellTix" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitVoucher">
+      <soap12:operation soapAction="http://www.arqsoft.net/SubmitVoucher" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitVoucher2">
+      <soap12:operation soapAction="http://www.arqsoft.net/SubmitVoucher2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTickets">
+      <soap12:operation soapAction="http://www.arqsoft.net/GetTickets" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTicketEMail">
+      <soap12:operation soapAction="http://www.arqsoft.net/SendTicketEMail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ShopService">
+    <wsdl:port name="ShopServiceSoap" binding="tns:ShopServiceSoap">
+      <soap:address location="http://localhost:60458/ShopService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ShopServiceSoap12" binding="tns:ShopServiceSoap12">
+      <soap12:address location="http://localhost:60458/ShopService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
