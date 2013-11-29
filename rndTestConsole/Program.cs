@@ -40,6 +40,7 @@ namespace rndTestConsole
                 int? p3 = null;
 
                 p1 = 123;
+                p1 -= 100;
 
                 Console.WriteLine(CorrectDefaultValue(p1, 0));
                 Console.WriteLine(CorrectDefaultValue(p2, 2));
